@@ -6,7 +6,8 @@ public class Main {
         Usuario usuario = new Usuario("Juan");
 
         //Agregamos algunos print para la consigna d
-        System.out.println("Ejemplo para TP de Ingenieria y Calidad de software.\n");
+        System.out.println("Ejemplo para TP de Ingenieria y Calidad de software.");
+        System.out.println("Nueva version 1.0.1\n");
         
         // Agregar algunos libros a la biblioteca
         biblioteca.agregarLibro(new Libro("Cien años de soledad", "Gabriel García Márquez"));
