@@ -9,6 +9,7 @@ public class Main {
         System.out.println("Ejemplo para TP de Ingenieria y Calidad de software.");
         System.out.println("Nueva version 1.0.1\n");
         //Cambio A
+        //Cambio B
         
         // Agregar algunos libros a la biblioteca
         biblioteca.agregarLibro(new Libro("Cien años de soledad", "Gabriel García Márquez"));
