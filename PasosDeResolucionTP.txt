@@ -1,0 +1,96 @@
+1) Se creo el repositorio en Github
+2) Clonamos el proyecto vacío del repositorio e hicimos un programa sencillo para la actividad.
+git clone repositorio
+git flow init
+
+a. Realizamos las modificaciones en el programa, agregando algunas clases. Luego de realizar la modificación lo publicamos.
+git add .
+git commit -m "descripcionCommit"
+git push origin develop
+
+b. Para no subir cambios de configuraciones locales se debe crear un archivo .gitignore
+Creamos otro archivo a modo de ejemplo (archivo_para_ignorar.txt), para luego configurar el gitignore.
+Hicimos otro push para comprobar que funciona.
+
+c. Nos aseguramos de estar parados en la rama develop:
+git checkout develop
+Iniciar la rama release seguido del numero de versión o nombre de la release, nosotro la llamaremos "v1.0.0".
+git flow release start v1.0.0
+Este comando hará lo siguiente:
+- Creará una nueva rama de release a partir de develop.
+- Te moverá automáticamente a la nueva rama de release para que puedas realizar ajustes finales antes del lanzamiento.
+
+d. Se realizó una modificación en el programa en la rama release v1.0.0
+Se agregó un print a modo de ejemplo en la clase Main.
+
+e. Cuando estés listo para finalizar la release (es decir, cuando todo esté revisado y listo para ser lanzado), utilizamos el siguiente comando:
+git flow release finish v1.0.0
+Se le agregó un tag "v1.0.0"
+
+f. Para corregir un error en la versión productiva siguiendo el flujo de trabajo de Git Flow, debemos crear una rama hotfix. 
+Las ramas hotfix están diseñadas para corregir errores críticos en la rama main (la versión productiva) sin necesidad de esperar a la próxima release desde develop. 
+Primero nos aseguramos de tener la última versión de main sincronizada:
+git fetch origin
+git checkout main
+git pull origin main
+Luego creamos una nueva rama hotfix:
+git flow hotfix start v1.0.1
+Realizamos los cambios necesarios, en nuestro caso agregamos un nuevo print.
+
+g. Luego de corregir los problemas, utilizamos el siguiente comando para cerrar la rama hotfix:
+git add .
+git commit -m "descripcionCommit"
+git flow hotfix finish v1.0.1
+Se Llevó al entorno productivo los cambios que corrigen el problema.
+
+h. Para incorporar una nueva funcionalidad se crea una nueva rama feature, para ello nos posicionamos sobre develop:
+git checkout develop
+git flow feature start nuevaFuncionalidad
+
+i. Ahora podemos agregar una nueva funcionalidad A a nuestro código. Agregamos esta funcionalidad en la clase Main.
+Ahora hacemos un push sin cerrar la feature
+Luego hacemos agregamos una nueva funcioan B y volvemos a hacer un push.
+Por último debemos deshacer la modificación B volviendo al estado en A:
+git revert hashCommit
+git push origin feature/nuevaFuncionalidad
+
+j. Para llevar los cambios de la rama creada en el punto i a producción, es primer lugar mergeamos la rama feature con develop, para no borrar esta rama porque lo solicitaron en clases. Luego hicimos un una rama release y finalizamos, aplicando los cambios en la rama main.
+
+3) Documentar con Git
+a. Se había creado un README cuando creamos el repositorio, ahora añadimos parte de la documentación del programa en este archivo.
+b. Cuando un externo (colaborador o contribuyente) realiza una modificación y envía un Pull Request (PR), es fundamental comprender bien el cambio propuesto para garantizar la calidad del código y su alineación con los objetivos del proyecto. 
+A continuación se lista qué datos solicitarle a la persona que completa el PR:
+- Título descriptivo.
+- Descripción detallada del cambio.
+- Capturas de pantalla (si es necesario).
+- Instrucciones para probar.
+- Checklist de verificación.
+- Información sobre compatibilidad.
+
+Herramientas de GitHub para facilitar esto:
+- Plantillas de PR.
+- Revisión de código (comentarios línea por línea).
+- Visualización de cambios (diff).
+- Integración con CI/CD.
+- Discusiones en el PR.
+- Vinculación de issues.
+- Solicitudes de revisión.
+- Reglas de protección de ramas.
+
+Plantillas de Pull Request: Podés configurar un archivo PULL_REQUEST_TEMPLATE.md en tu repositorio. Este archivo proporciona una plantilla para que los contribuyentes sigan al crear un PR, asegurando que proporcionen la información clave.
+
+Descripción de un Pull Request (PR):
+Objetivo: Un PR es la manera de proponer cambios en un proyecto, especialmente en equipos colaborativos. Permite que otros revisen tu código antes de incorporarlo al código base.
+Proceso:
+Creas una nueva rama en la que realizas tus cambios.
+Una vez que terminas y haces push de esos cambios, puedes abrir un Pull Request desde esa rama.
+Los mantenedores del proyecto o tus colaboradores revisarán el PR, dejando comentarios, sugiriendo mejoras, o aprobando los cambios.
+Una vez aprobado, el PR se fusiona con la rama destino (generalmente main o develop).
+Componentes de un Pull Request:
+Título: Resumen de lo que cambia en este PR.
+Descripción: Detalles sobre los cambios que realizaste y el propósito de esos cambios. Aquí es donde puedes agregar notas sobre los problemas que resolviste, nuevas funcionalidades, etc.
+Comparación de ramas: En el PR se especifica la rama de origen (donde hiciste los cambios) y la rama de destino (donde se quiere fusionar).
+Comentarios: Los colaboradores pueden dejar comentarios sobre líneas específicas de código, hacer preguntas, o solicitar modificaciones.
+Revisiones: Los revisores pueden aprobar el PR, pedir cambios, o bloquear la fusión hasta que se resuelvan ciertos problemas.
+Merge: Una vez aprobado, el PR puede ser "mergeado" (fusionado) con la rama de destino. Esto significa que los cambios de la rama del PR se integrarán en la rama objetivo.
+
